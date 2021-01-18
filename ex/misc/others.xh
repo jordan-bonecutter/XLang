@@ -1,0 +1,62 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+type chessPieceType = enum {
+  pawn
+  knight
+  bishop
+  rook
+  queen
+  king
+}
+
+type genericNumber = pack {
+  numberType enum {
+    integer
+    floatingPoint
+  }
+  rawunion {
+    int
+    float
+  }
+}
+
+type moreGenericNumber = union {
+  int
+  float
+}
+
+function add(n1 int, n2 int) -> n3 int {
+  n3 = n1 + n2
+}
+
+routine doAdd() {
+  return add(n1, n2) 
+}
+
+function add(arr1 &[virtual N]int, arr2 &[virtual N]) -> (arr3 [virtual N]) {
+  arr3 [N]int
+  for index in range(N) {
+    arr3[index] = arr1[index] + arr2[index]
+  }
+}
+
+function add(arr1 &[virtual N]int, arr2 &[virtual N]) -> (arr3 !&[virtual N]) {
+  arr3 [N]int
+  for index in range(N) {
+    arr3[index] = arr1[index] + arr2[index]
+  }
+}
+
+routine doArrAdd() {
+  arr1 = [i for i in range(10)]
+  arr2 = [(i*i) for i in range(10)]
+  arr3 [10]int
+
+  arr3 = add(&arr1, &arr2)
+  add(&arr1, &arr2)(&arr3)
+}
+

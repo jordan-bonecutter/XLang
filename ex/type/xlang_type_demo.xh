@@ -1,0 +1,49 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+import "standard"
+import "time"
+
+type taxonomicRank = pack {
+  domain, kingdom, phylum, class, order, family, genus, species string
+}
+
+type kilogram = alias float
+
+type animal = pack {
+  rank taxonomicRank 
+  weight kilogram
+  routine eat() {}
+}
+
+type pet = pack {
+  name string
+  dateOfBirth time.moment
+}
+
+type dog = pack {
+  animal {
+    domain  = "animalia"
+    phylum  = "chordata"
+    class   = "mammalia"
+    order   = "carnivora"
+    family  = "canidae"
+    genus   = "canis"
+    species = "lupus"
+  }
+  pet
+  color string
+  routine bark () {
+    standard.println("woof!") 
+  }
+}
+
+type westie = pack {
+  dog {
+    color = "white"
+  }
+}
+
